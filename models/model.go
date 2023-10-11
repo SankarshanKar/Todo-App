@@ -22,7 +22,7 @@ func GetAllTodos() ([]Todo, error) {
 	if err != nil {
 		return todos, err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	for rows.Next() {
 		var title string

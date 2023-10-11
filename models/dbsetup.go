@@ -2,6 +2,9 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
+
+	 _"github.com/mattn/go-sqlite3"
 )
 
 var (
@@ -13,7 +16,7 @@ func Setup() {
 	const file string = "todos.db"
 	db, err = sql.Open("sqlite3", file)
 	if err != nil {
-		panic("Could not connect to DB")
+		fmt.Println("Could not connect to DB:", err)
 	}
 
 	err = db.Ping()
