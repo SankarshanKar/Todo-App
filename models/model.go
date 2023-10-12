@@ -74,8 +74,8 @@ func MarkDone(id uint64) error {
 		return err
 	}
 
-	statement := `update todos set done=$2 where id=$1;`
-	_, err = db.Exec(statement, id, !todo.Done)
+	statement := `update todos set done=$1 where id=$2;`
+	_, err = db.Exec(statement, !todo.Done, id)
 
 	return err
 }
