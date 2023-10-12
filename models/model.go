@@ -9,7 +9,7 @@ type Todo struct {
 func CreateTodo(todo string) error {
 	statement := `insert into todos(todo, done) values($1, $2);`
 
-	_, err := db.Query(statement, todo, false)
+	_, err := db.Exec(statement, todo, false)
 	return err
 }
 
@@ -22,7 +22,7 @@ func GetAllTodos() ([]Todo, error) {
 	if err != nil {
 		return todos, err
 	}
-	//defer db.Close()
+	defer rows.Close()
 
 	for rows.Next() {
 		var title string
@@ -75,7 +75,7 @@ func MarkDone(id uint64) error {
 	}
 
 	statement := `update todos set done=$2 where id=$1;`
-	_, err = db.Query(statement, id, !todo.Done)
+	_, err = db.Exec(statement, id, !todo.Done)
 
 	return err
 }
